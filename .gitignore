@@ -1,0 +1,13 @@
+# Files related to Terraform
+.terraform.lock.hcl
+.terraform
+
+# Files related to this Terraform plan while testing
+*.tfvars
+*.tfstate
+atlassian_layer.zip
+temp
+
+# Custom files
+next-steps.txt
+*.backup
