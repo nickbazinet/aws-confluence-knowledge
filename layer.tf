@@ -4,7 +4,7 @@ resource "null_resource" "lambda_layer" {
   }
   provisioner "local-exec" {
     command = <<EOT
-      ./layer_creation.sh 
+      ./${path.module}/layer_creation.sh 
     EOT
   }
 }
