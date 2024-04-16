@@ -4,7 +4,7 @@ resource "null_resource" "lambda_layer" {
   }
   provisioner "local-exec" {
     command = <<EOT
-      ./${path.module}/layer_creation.sh 
+      ./${path.module}/layer_creation.sh ${path.module} 
     EOT
   }
 }
@@ -16,7 +16,7 @@ resource "aws_s3_bucket" "atlassian_layer" {
 resource "aws_s3_object" "lambda_layer_zip" {
   bucket     = aws_s3_bucket.atlassian_layer.id
   key        = "lambda_layers/atlassian-layer.zip"
-  source     = "atlassian_layer.zip"
+  source     = "${path.module}/atlassian_layer.zip"
   depends_on = [null_resource.lambda_layer]
 }
 

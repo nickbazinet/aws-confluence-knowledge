@@ -1,7 +1,9 @@
 #!/bin/sh
 
-mkdir -p temp
-cd temp
+path="$1"
+
+mkdir -p $path/temp
+cd $path/temp
 rm -rf python
 mkdir -p python
 pip install -r ../requirements.txt -t python/
