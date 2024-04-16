@@ -3,6 +3,21 @@
 This Terraform module is can be imported in order to create an [AWS Knowledge Base](https://aws.amazon.com/bedrock/knowledge-bases/)
 that has the context of a whole Atlassian Confluence Space.
 
+# Usage
+```hcl
+module "aws_confluence_knowledge" {
+  source = "github.com/nickbazinet/aws-confluence-knowledge"
+
+  private_subnet_name = var.private_subnet_name
+  vpc_name            = var.vpc_name 
+
+  confluence_space = "MY_SPACE"
+  confluence_url   = "https://mydomain.atlassian.net/wiki"
+  access_token     = "my_username@domain.com" 
+  secret_token     = "your_secret_token"
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

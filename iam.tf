@@ -1,5 +1,5 @@
 resource "aws_iam_role" "wiki_download" {
-  name = "lambda_download_wiki"
+  name = "confluence_knowledge_downloader"
 
   assume_role_policy = <<EOF
 {
@@ -18,7 +18,7 @@ EOF
 }
 
 resource "aws_iam_policy" "wiki_download" {
-  name = "lambda_wiki_upload_policy"
+  name = "confluence_knowledge_downloader_execution"
 
   policy = <<EOF
 {
@@ -71,6 +71,6 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_role_attachment" {
-  role       = aws_iam_role.wiki_download.id
+  role       = aws_iam_role.wiki_download.name
   policy_arn = aws_iam_policy.wiki_download.arn
 }

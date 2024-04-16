@@ -1,4 +1,3 @@
-
 data "archive_file" "download_wiki_archive" {
   type        = "zip"
   output_path = "${path.module}/download_wiki.zip"
@@ -50,9 +49,9 @@ resource "aws_lambda_function" "lambda_wiki_upload" {
     }
   }
 
-  layers = [aws_lambda_layer_version.atlassian.arn]
+  layers = [aws_lambda_layer_version.atlassian.arn, aws_iam_role.wiki_download]
 
-  depends_on = [data.archive_file.download_wiki_archive]
+  depends_on = [data.archive_file.download_wiki_archive, aws_iam_role.wiki_download]
 }
 
 resource "aws_security_group" "wiki_knowledge_export" {
