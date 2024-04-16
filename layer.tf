@@ -1,6 +1,6 @@
 resource "null_resource" "lambda_layer" {
   triggers = {
-    requirements = filesha1("requirements.txt")
+    requirements = filesha1("${path.module}/requirements.txt")
   }
   provisioner "local-exec" {
     command = <<EOT

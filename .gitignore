@@ -1,11 +1,13 @@
 # Files related to Terraform
 .terraform.lock.hcl
+.terraform.tfstate.lock.info
 .terraform
 
 # Files related to this Terraform plan while testing
 *.tfvars
 *.tfstate
 atlassian_layer.zip
+download_wiki.zip
 temp
 
 # Custom files

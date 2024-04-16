@@ -8,10 +8,14 @@ data "archive_file" "download_wiki_archive" {
     filename = "exporter.py"
   }
 
-
   source {
     content  = file("${path.module}/scripts/wiki.py")
     filename = "wiki.py"
+  }
+
+  source {
+    content  = file("${path.module}/scripts/uploader.py")
+    filename = "uploader.py"
   }
 }
 
