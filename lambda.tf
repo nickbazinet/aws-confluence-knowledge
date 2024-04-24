@@ -16,6 +16,11 @@ data "archive_file" "download_wiki_archive" {
     content  = file("${path.module}/scripts/uploader.py")
     filename = "uploader.py"
   }
+
+  source {
+    content  = file("${path.module}/scripts/mdfconfluence.py")
+    filename = "mdfconfluence.py"
+  }
 }
 
 resource "aws_lambda_function" "lambda_wiki_upload" {

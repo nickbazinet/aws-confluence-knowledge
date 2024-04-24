@@ -1,9 +1,9 @@
-from atlassian import Confluence
+import mdfconfluence 
 import wiki
 import uploader
 import os
 
-confluence = Confluence(
+confluence = mdfconfluence.MdfConfluence(
     url=os.environ['WIKI_URL'],
     username=os.environ['ACCESS_TOKEN'],
     password=os.environ['SECRET_TOKEN']
