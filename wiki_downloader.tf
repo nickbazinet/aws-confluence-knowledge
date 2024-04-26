@@ -26,7 +26,7 @@ data "archive_file" "download_wiki_archive" {
 resource "aws_lambda_function" "lambda_wiki_upload" {
   filename         = data.archive_file.download_wiki_archive.output_path
   function_name    = "wiki_downloader"
-  handler          = "exporter.lambda_handler"
+  handler          = "exporter.lambda_handler_v2"
   source_code_hash = data.archive_file.download_wiki_archive.output_sha
   description      = "Lambda function that will download all the pages from a specific Confluence Space into an S3 bucket"
   role             = aws_iam_role.wiki_download.arn
@@ -51,10 +51,11 @@ resource "aws_lambda_function" "lambda_wiki_upload" {
       SECRET_TOKEN          = var.secret_token
       EFS_MOUNT_PATH        = "/mnt/efs-wiki-download"
       KNOWLEDGE_BASE_BUCKET = aws_s3_bucket.eproc_confluence_kb.bucket
+      WIKI_SNS_TOPIC_ARN    = aws_sns_topic.confluence_knowledge_base_event.arn
     }
   }
 
-  layers = [aws_lambda_layer_version.atlassian.arn, aws_iam_role.wiki_download]
+  layers = [aws_lambda_layer_version.atlassian.arn]
 
   depends_on = [data.archive_file.download_wiki_archive, aws_iam_role.wiki_download]
 }

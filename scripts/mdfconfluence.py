@@ -35,9 +35,9 @@ class MdfConfluence(Confluence):
                         error_msg_list.extend([v.get("message", "") if isinstance(v, dict) else v for v in errors])
                     error_msg = "\n".join(error_msg_list)
             except Exception as e:
-                log.error(e)
-                response.raise_for_status()
+                log.warn(e)
+                #response.raise_for_status()
             else:
                 log.warn(error_msg)
-        else:
-            response.raise_for_status()
+        #else:
+            #response.raise_for_status()

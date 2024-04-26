@@ -23,6 +23,13 @@ def upload_to_s3(local_dir: str, bucket_name: str):
                     s3.upload_file(local_file_path, bucket_name, relative_path)
                     print(f"Uploaded {local_file_path} to s3://{bucket_name}/{relative_path}")
 
+def upload_file_to_s3(bucket_name: str, file_path: str, file_name: str):
+    """
+    Upload a single given file into a remote S3 bucket
+    """
+    s3.upload_file(file_path, bucket_name, file_name)
+    print(f"Uploaded {file_path} to s3://{bucket_name}/{file_name}")
+
 def upload_full_directory(local_dir: str, bucket_name: str):
   """
   Uploads the contents of a local directory to an S3 bucket.

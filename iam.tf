@@ -63,6 +63,22 @@ resource "aws_iam_policy" "wiki_download" {
         "${aws_efs_file_system.wiki_download.arn}",
         "${aws_efs_access_point.wiki_download.arn}"
       ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "sns:Publish"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes"
+      ],
+      "Resource": "*"
     }
 
   ]

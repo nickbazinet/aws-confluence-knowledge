@@ -12,7 +12,7 @@ def download_files(confluence: Confluence, space_name: str, destination_dir: str
     pgs = confluence.get_all_pages_from_space(
         space_name,
         0,
-        limit=200,
+        limit=2000,
         status="current",
         content_type="page",
     )
