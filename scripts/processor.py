@@ -8,7 +8,8 @@ import json
 confluence = mdfconfluence.MdfConfluence(
     url=os.environ['WIKI_URL'],
     username=os.environ['ACCESS_TOKEN'],
-    password=os.environ['SECRET_TOKEN']
+    password=os.environ['SECRET_TOKEN'],
+    api_version="cloud"
 )
 
 confluence_space=os.environ['WIKI_SPACE']
@@ -25,13 +26,16 @@ def lambda_handler(event, context):
     
     for message in event['Records']:
         page = json.load(message['body'])
-        local_destination_dir = efs_mount_path + "/"
-        file_path = local_destination_dir + page["page_id"] + ".pdf"
-    
-        s3_destination_name = destination_bucket_name
 
+        # Download file locally from export
+        local_destination_dir = efs_mount_path + "/"
+    
         wiki.download_file(confluence, page["page_id"], page["page_title"], local_destination_dir)
-        uploader.upload_file_to_s3(s3_destination_name, file_path, page["page_title"] )
+
+        # Upload file to S3
+        file_path = local_destination_dir + page["page_id"] + ".pdf"
+        s3_destination_name = destination_bucket_name
+        uploader.upload_file_to_s3(s3_destination_name, file_path, confluence_space + page["page_id"] + ".pdf" )
 
 
     print("Lambda handler completely successfully")
