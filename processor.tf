@@ -32,6 +32,7 @@ resource "aws_lambda_function" "lambda_wiki_event_processor" {
   role             = aws_iam_role.wiki_download.arn
   runtime          = "python3.12"
   timeout          = 30
+  reserved_concurrent_executions = 1
 
   vpc_config {
     security_group_ids = [aws_security_group.wiki_knowledge_export.id]

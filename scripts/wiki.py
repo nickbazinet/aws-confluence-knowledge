@@ -1,7 +1,7 @@
 from atlassian import Confluence
 
 
-def download_file(confluence: Confluence, page_id: int, page_title: str, destination_dir: str):
+def download_file(confluence, page_id, page_title, destination_dir):
     content = confluence.export_page(page_id)
     with open(destination_dir + str(page_id) + ".pdf", "wb") as pdf_file:
         pdf_file.write(content)
