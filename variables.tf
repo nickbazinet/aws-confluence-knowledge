@@ -29,3 +29,9 @@ variable "secret_token" {
   description = "Secret Token in order to access the confluence space"
   sensitive   = true
 }
+
+variable "knowledge_base_name" {
+  type = string
+  description = "Name of the AWS Bedrock Knowledge Base containing the knowledge of the related confluence spaces. Default to 'atlassian-confluence-spaces'"
+  default = "atlassian-confluence-spaces"
+}

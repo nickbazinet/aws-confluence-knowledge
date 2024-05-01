@@ -19,7 +19,7 @@ destination_bucket_name=os.environ['KNOWLEDGE_BASE_BUCKET']
 def lambda_handler(event, _):
     """
     Lambda function main entry point. 
-    Will download all page of a specific Confluence Space locally, 
+    Will download a given confluence page locally, 
     and then upload them to an S3 bucket
     """
     

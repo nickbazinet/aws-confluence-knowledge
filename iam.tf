@@ -42,7 +42,7 @@ resource "aws_iam_policy" "wiki_download" {
         "logs:PutLogEvents"
       ],
       "Resource": [
-        "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/${aws_lambda_function.lambda_wiki_upload.function_name}:*"
+        "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/${aws_lambda_function.initiator.function_name}:*"
       ]
     },
     {

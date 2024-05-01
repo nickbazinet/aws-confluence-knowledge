@@ -3,8 +3,8 @@ data "archive_file" "download_wiki_archive" {
   output_path = "${path.module}/download_wiki.zip"
 
   source {
-    content  = file("${path.module}/scripts/exporter.py")
-    filename = "exporter.py"
+    content  = file("${path.module}/scripts/initiator.py")
+    filename = "initiator.py"
   }
 
   source {
@@ -23,10 +23,10 @@ data "archive_file" "download_wiki_archive" {
   }
 }
 
-resource "aws_lambda_function" "lambda_wiki_upload" {
+resource "aws_lambda_function" "initiator" {
   filename         = data.archive_file.download_wiki_archive.output_path
   function_name    = "wiki_downloader"
-  handler          = "exporter.lambda_handler_v2"
+  handler          = "initiator.lambda_handler"
   source_code_hash = data.archive_file.download_wiki_archive.output_sha
   description      = "Lambda function that will download all the pages from a specific Confluence Space into an S3 bucket"
   role             = aws_iam_role.wiki_download.arn
