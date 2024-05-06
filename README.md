@@ -11,12 +11,25 @@ module "aws_confluence_knowledge" {
   private_subnet_name = var.private_subnet_name
   vpc_name            = var.vpc_name 
 
-  confluence_space = "MY_SPACE"
+  confluence_space = ["MY_SPACE1","MY_SPACE2"]
   confluence_url   = "https://mydomain.atlassian.net/wiki"
   access_token     = "my_username@domain.com" 
   secret_token     = "your_secret_token"
 }
 ```
+
+# Development
+
+## Documentation
+In order to update the Terraform documentation
+```bash
+$~ terraform-docs markdown table --output-file README.md --output-mode inject .
+```
+
+## Next Steps
+- Create logic to persist last time we fetched page, and update S3 bucket when there's no update on confluence
+- Create github actions to run terraform validate 
+- Create github action to run python linter
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -49,6 +62,9 @@ No modules.
 | [aws_iam_policy.wiki_download](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.confluence_kb_service](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role.wiki_download](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy_attachment.bedrock_foundation_model](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.bedrock_oss](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.bedrock_s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.lambda_role_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_kms_alias.aws-wiki_kb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_alias) | resource |
 | [aws_kms_key.encryption_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
@@ -80,7 +96,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_token"></a> [access\_token](#input\_access\_token) | Username Token in order to access the confluence space | `string` | n/a | yes |
-| <a name="input_confluence_space"></a> [confluence\_space](#input\_confluence\_space) | Value of the Confluence space to be downloaded | `string` | n/a | yes |
+| <a name="input_confluence_spaces"></a> [confluence\_spaces](#input\_confluence\_spaces) | List of Confluence spaces name to be downloaded | `list(string)` | n/a | yes |
 | <a name="input_confluence_url"></a> [confluence\_url](#input\_confluence\_url) | Value of the confluence full URL. Per example: https://mydomain.atlassian.net/wiki | `string` | n/a | yes |
 | <a name="input_knowledge_base_name"></a> [knowledge\_base\_name](#input\_knowledge\_base\_name) | Name of the AWS Bedrock Knowledge Base containing the knowledge of the related confluence spaces. Default to 'atlassian-confluence-spaces' | `string` | `"atlassian-confluence-spaces"` | no |
 | <a name="input_private_subnet_name"></a> [private\_subnet\_name](#input\_private\_subnet\_name) | Private Subnet Name | `string` | n/a | yes |
