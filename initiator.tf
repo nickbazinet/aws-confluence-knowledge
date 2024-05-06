@@ -45,7 +45,7 @@ resource "aws_lambda_function" "initiator" {
 
   environment {
     variables = {
-      WIKI_SPACE            = var.confluence_space
+      WIKI_SPACE            = var.confluence_spaces
       WIKI_URL              = var.confluence_url
       ACCESS_TOKEN          = var.access_token
       SECRET_TOKEN          = var.secret_token
